@@ -32,6 +32,11 @@ Sistem web dikonfigurasi menggunakan Google Analytics Universal Tracker dengan p
 * **Conversion Rate:** Menghitung jumlah klik checkout dibanding total visitor unik harian.
 * **Bounce Rate:** Mengidentifikasi tingkat relevansi visual halaman *Hero Banner* terhadap minat pembaca.
 
+### F. Panduan Akses Halaman
+Aplikasi ini memiliki dua halaman utama yang saling terintegrasi melalui `LocalStorage`:
+1. **Halaman Utama (Katalog Pembeli):** Bisa diakses langsung melalui URL utama GitHub Pages.
+2. **Halaman Pengelola (Admin/Inventori):** Untuk masuk ke halaman pengelolaan stok dan buku, Anda hanya perlu menambahkan `/admin.html` di bagian paling ujung URL utama pada search bar browser Anda.
+   * *Contoh:* `https://fznnbwi24.github.io/FootageBooks-Project/admin.html`
 ---
 
 ## 2. Technical Stack Explanation
