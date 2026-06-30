@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FootageBooks - Toko Buku Online Modern</title>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DUMMY123"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-DUMMY123');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="logo">🎬 FootageBooks</div>
+        <nav class="nav-links">
+            <a href="#hero">Home</a>
+            <a href="#katalog">Katalog</a>
+            <button id="cart-btn">🛒 Keranjang (<span id="cart-count">0</span>)</button>
+        </nav>
+    </header>
+
+    <section id="hero" class="hero-banner">
+        <div class="hero-content">
+            <h1>Temukan Kisah Inspiratif dalam Lembaran Buku</h1>
+            <p>Platform e-commerce terlengkap untuk Novel, Komik, dan Cerpen pilihan dengan pengalaman membaca terbaik.</p>
+            <a href="#katalog" class="btn-hero">Jelajahi Katalog</a>
+        </div>
+    </section>
+
+    <div class="container" id="katalog">
+        
+        <div class="toolbar">
+            <input type="text" id="search-input" placeholder="🔍 Cari judul buku atau penulis..." oninput="filterDanCari()">
+            <div class="categories">
+                <button class="cat-btn active" onclick="filterKategori('semua', event)">Semua</button>
+                <button class="cat-btn" onclick="filterKategori('Novel', event)">Novel</button>
+                <button class="cat-btn" onclick="filterKategori('Komik', event)">Komik</button>
+                <button class="cat-btn" onclick="filterKategori('Cerpen', event)">Cerpen</button>
+            </div>
+        </div>
+
+        <main class="book-grid" id="book-display">
+            </main>
+    </div>
+
+    <div class="modal" id="product-modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-body" id="modal-body-content">
+                </div>
+        </div>
+    </div>
+
+    <div class="cart-overlay" id="cart-overlay"></div>
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Keranjang Belanja</h3>
+            <button class="close-cart" id="close-cart">&times;</button>
+        </div>
+        
+        <div class="cart-items" id="cart-items-container"></div>
+        
+        <form class="checkout-form" id="order-form" onsubmit="prosesCheckout(event)">
+            <h4>Data Pengiriman & Pembayaran</h4>
+            <input type="text" id="buyer-name" placeholder="Nama Lengkap" required>
+            <textarea id="buyer-address" placeholder="Alamat Lengkap Pengiriman" required></textarea>
+            
+            <label>Metode Pembayaran (Simulasi Midtrans):</label>
+            <select id="payment-method" required>
+                <option value="COD (Bayar di Tempat)">💵 COD (Bayar di Tempat)</option>
+                <option value="Midtrans - Bank Transfer (BCA)">🏦 Bank Transfer (Virtual Account BCA)</option>
+                <option value="Midtrans - E-Wallet (Gopay/Dana)">📱 QRIS / Gopay / Dana</option>
+            </select>
+
+            <div class="cart-footer">
+                <div class="total-price">
+                    <span>Total:</span>
+                    <span id="cart-total">Rp 0</span>
+                </div>
+                <button type="submit" class="btn-checkout">Bayar Sekarang</button>
+            </div>
+        </form>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>FootageBooks</h3>
+                <p>Membawa cerita lebih hidup ke genggaman Anda.</p>
+            </div>
+            <div>
+                <h4>Kategori</h4>
+                <p>Novel | Komik | Cerpen</p>
+            </div>
+            <div>
+                <h4>Kontak & Jam Kerja</h4>
+                <p>Email: support@footagebooks.com<br>WhatsApp: +62 858-6037-6815<br>Senin - Minggu: 08.00 - 21.00 WIB</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 FootageBooks. All Rights Reserved. Crafted for Assignment.
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

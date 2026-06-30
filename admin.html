@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FootageBooks - Ruang Pengelola Admin</title>
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #0f766e;
+            --accent-hover: #14b8a6;
+            --bg-dark: #1e293b;
+            --text-light: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--text-light);
+            padding: 2rem 1rem;
+        }
+
+        .admin-box {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--bg-dark);
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            border: 1px solid #334155;
+        }
+
+        h2 {
+            color: #2dd4bf;
+            margin-bottom: 0.5rem;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 0.5rem;
+        }
+
+        .sub-title {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+        }
+
+        @media (min-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .full-width {
+                grid-column: 1 / -1;
+            }
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary);
+            border: 1px solid #475569;
+            color: white;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            border-color: #2dd4bf;
+            outline: none;
+        }
+
+        .btn-save {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.9rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: 0.2s;
+            margin-top: 1rem;
+        }
+
+        .btn-save:hover {
+            background: var(--accent-hover);
+        }
+
+        /* Tabel Inventori */
+        .table-section {
+            margin-top: 3.5rem;
+        }
+
+        .table-section h3 {
+            color: #2dd4bf;
+            margin-bottom: 1rem;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--primary);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #334155;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: #334155;
+            color: #2dd4bf;
+            font-weight: 600;
+        }
+
+        td img {
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        .btn-del {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+
+        .btn-del:hover {
+            background: #dc2626;
+        }
+    </style>
+</head>
+<body>
+
+<div class="admin-box">
+    <h2>🛠️ Pengelola Inventori FootageBooks</h2>
+    <p class="sub-title">Menambah, mengedit, atau menghapus buku yang tampil di halaman utama katalog customer.</p>
+    
+    <!-- FORM INPUT PRODUK BARU -->
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="title">Judul Buku</label>
+            <input type="text" id="title" placeholder="Contoh: Sang Pemimpi">
+        </div>
+        
+        <div class="form-group">
+            <label for="author">Nama Penulis</label>
+            <input type="text" id="author" placeholder="Contoh: Andrea Hirata">
+        </div>
+        
+        <div class="form-group">
+            <label for="category">Kategori Buku</label>
+            <select id="category">
+                <option value="Novel">Novel</option>
+                <option value="Komik">Komik</option>
+                <option value="Cerpen">Cerpen</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="price">Harga Jual (Rp)</label>
+            <input type="number" id="price" placeholder="Contoh: 85000">
+        </div>
+        
+        <div class="form-group full-width">
+            <label for="image">Link URL Gambar Cover Buku (Opsional)</label>
+            <input type="text" id="image" placeholder="Tempel URL gambar dari Google atau ketik folder lokal (images/nama-file.jpg)">
+        </div>
+
+        <div class="form-group full-width">
+            <label for="desc">Sinopsis / Deskripsi Singkat</label>
+            <textarea id="desc" rows="3" placeholder="Tuliskan gambaran singkat cerita buku di sini..."></textarea>
+        </div>
+    </div>
+    
+    <button class="btn-save" onclick="tambahBukuKeToko()">🚀 Publish Buku ke Toko</button>
+
+    <!-- TABEL MONITORING STOK -->
+    <div class="table-section">
+        <h3>📚 Daftar Pajangan Buku Saat Ini</h3>
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Cover</th>
+                        <th>Detail Buku</th>
+                        <th>Kategori</th>
+                        <th>Harga</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-table-body">
+                    <!-- Data buku di-render otomatis dari JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Database Default awal jika localStorage masih kosong (Sama dengan app.js)
+    const defaultInitial = [
+        { id: 1, title: "Laskar Pelangi", author: "Andrea Hirata", price: 85000, category: "Novel", color: "#0f766e", image: "", desc: "Kisah inspiratif perjuangan 10 anak Belitung mengejar mimpi lewat jalur pendidikan formal di tengah keterbatasan." },
+        { id: 2, title: "Naruto Gaiden", author: "Masashi Kishimoto", price: 35000, category: "Komik", color: "#b45309", image: "", desc: "Petualangan seru generasi baru ninja Konoha yang dipimpin oleh Sarada Uchiha mencari jati dirinya." },
+        { id: 3, title: "Filosofi Kopi", author: "Dee Lestari", price: 70000, category: "Cerpen", color: "#5b21b6", image: "", desc: "Kumpulan cerita pendek penuh makna tentang persahabatan, cinta, dan secangkir kopi hitam yang jujur." },
+        { id: 4, title: "Bumi", author: "Tere Liye", price: 95000, category: "Novel", color: "#1e3a8a", image: "", desc: "Dunia paralel fantasi yang menegangkan mengenai petualangan tiga remaja SMA yang memiliki kekuatan unik." }
+    ];
+
+    let currentData = JSON.parse(localStorage.getItem('footage_books_data')) || defaultInitial;
+
+    // Fungsi menyimpan perubahan data ke local storage dan me-refresh tabel admin
+    function sinkronkanData() {
+        localStorage.setItem('footage_books_data', JSON.stringify(currentData));
+        renderTabelAdmin();
+    }
+
+    // Fungsi merender list buku ke dalam baris tabel
+    function renderTabelAdmin() {
+        const tbody = document.getElementById('admin-table-body');
+        tbody.innerHTML = "";
+        
+        if (currentData.length === 0) {
+            tbody.innerHTML = "<tr><td colspan='5' style='text-align:center; color:#94a3b8; padding: 2rem;'>Belum ada koleksi buku di toko Anda.</td></tr>";
+            return;
+        }
+
+        currentData.forEach(b => {
+            // Cek apakah ada gambar cover, jika tidak ada pakai kotak abu dummy kecil
+            const kolomCover = b.image 
+                ? `<img src="${b.image}" width="50" height="70" alt="Cover">`
+                : `<div style="width:50px; height:70px; background:${b.color || '#475569'}; border-radius:4px; font-size:9px; display:flex; align-items:center; text-align:center; color:white; padding:2px; overflow:hidden;">${b.title}</div>`;
+
+            tbody.innerHTML += `
+                <tr>
+                    <td>${kolomCover}</td>
+                    <td>
+                        <strong>${b.title}</strong><br>
+                        <span style="font-size:0.8rem; color:#94a3b8;">Oleh: ${b.author}</span>
+                    </td>
+                    <td><span style="background:#334155; padding:0.2rem 0.6rem; border-radius:12px; font-size:0.85rem;">${b.category}</span></td>
+                    <td>Rp ${b.price.toLocaleString('id-ID')}</td>
+                    <td><button class="btn-del" onclick="hapusBukuDariToko(${b.id})">Hapus</button></td>
+                </tr>
+            `;
+        });
+    }
+
+    // Fungsi menambahkan entri buku baru dari form input
+    function tambahBukuKeToko() {
+        const title = document.getElementById('title').value.trim();
+        const author = document.getElementById('author').value.trim();
+        const category = document.getElementById('category').value;
+        const price = parseInt(document.getElementById('price').value);
+        const image = document.getElementById('image').value.trim();
+        const desc = document.getElementById('desc').value.trim() || "Tidak ada sinopsis untuk buku ini.";
+
+        if (!title || !author || !price) {
+            alert("⚠️ Kolom Judul, Penulis, dan Harga wajib diisi!");
+            return;
+        }
+
+        // Generate acak background warna jikalau admin tidak mengisi link gambar
+        const hexColors = ["#0f766e", "#1e3a8a", "#5b21b6", "#9d174d", "#c2410c", "#15803d", "#374151"];
+        const randomColor = hexColors[Math.floor(Math.random() * hexColors.length)];
+
+        const bukuBaru = {
+            id: Date.now(), // ID Unik berbasis waktu token
+            title: title,
+            author: author,
+            category: category,
+            price: price,
+            image: image,
+            desc: desc,
+            color: randomColor
+        };
+
+        currentData.push(bukuBaru);
+        sinkronkanData();
+
+        // Reset semua isian form kembali kosong
+        document.getElementById('title').value = "";
+        document.getElementById('author').value = "";
+        document.getElementById('price').value = "";
+        document.getElementById('image').value = "";
+        document.getElementById('desc').value = "";
+        
+        alert("🎉 Berhasil! Buku '" + title + "' telah dipajang di toko.");
+    }
+
+    // Fungsi menghapus buku
+    function hapusBukuDariToko(id) {
+        if (confirm("Apakah Anda yakin ingin menurunkan buku ini dari etalase toko?")) {
+            currentData = currentData.filter(item => item.id !== id);
+            sinkronkanData();
+        }
+    }
+
+    // Jalankan render tabel otomatis saat halaman admin dibuka pertama kali
+    sinkronkanData();
+</script>
+</body>
+</html>
